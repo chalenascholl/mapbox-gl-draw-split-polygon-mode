@@ -1,0 +1,12 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@mapbox/mapbox-gl-draw": "^1.4.3",
+    "mapbox-gl-draw-passing-mode": "^2.2.2"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

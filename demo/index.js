@@ -7,9 +7,13 @@ import SplitPolygonMode, {
   Constants as splitPolygonConstants,
 } from "..";
 
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+
 const { MODE } = import.meta.env;
 
 import "./index.css";
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 let map, draw, drawBar;
 
