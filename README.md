@@ -68,8 +68,10 @@ draw.changeMode(
 
 > The syntax used here is because `mapbox-gl-draw-split-polygon-mode` needs to modify the modes object and also the `styles` object passed to the `mapbox-gl-draw`. the reason is this package uses [`mapbox-gl-draw-passing-mode`](https://github.com/mhsattarian/mapbox-gl-draw-passing-mode) underneath (and adds this to modes object) and needs to modify the styles to show the selected feature.
 
-### Draw Control
-You can create a [custom mapbox-gl draw toolbar](https://github.com/mapbox/mapbox-gl-draw/issues/874#issuecomment-470591089) to control this, take a look at the [**example**](https://github.com/ReyhaneMasumi/mapbox-gl-draw-split-polygon-mode/blob/main/demo/index.js) in the `demo` directory. in this example `mapbox-gl-draw-select-mode` is used so users can select feature after clicking in the split icon in the toolbar and get a highlighting when hover each map feature.
+### Customization and Draw Control
+You can create a [custom mapbox-gl draw toolbar](https://github.com/mapbox/mapbox-gl-draw/issues/874#issuecomment-470591089) to control this, take a look at the [**example**](https://github.com/ReyhaneMasumi/mapbox-gl-draw-split-polygon-mode/blob/main/demo/index.js) in the `demo` directory. 
+
+In this example, `mapbox-gl-draw-select-mode` is passed as the default to this modes mode and style properties, so that users can select a feature after clicking in the split icon in the toolbar and see highlighting when hovering over each map feature.
 
 ### Notes
 
