@@ -49,6 +49,8 @@ draw = new MapboxDraw({
   styles: [...splitPolygonDrawStyles(MapboxDraw.lib.theme)],
 });
 
+map.addControl(draw);
+
 /// Activate the mode
 draw.changeMode("split_polygon");
 
@@ -62,68 +64,12 @@ draw.changeMode(
     lineWidthUnit: "kilometers",
   }
 );
-
-/// Add the button to the draw controls using a monkey patch
-class extendDrawBar {
-  constructor(opt) {
-    let ctrl = this;
-    ctrl.draw = opt.draw;
-    ctrl.buttons = opt.buttons || [];
-    ctrl.onAddOrig = opt.draw.onAdd;
-    ctrl.onRemoveOrig = opt.draw.onRemove;
-  }
-  onAdd(map) {
-    let ctrl = this;
-    ctrl.map = map;
-    ctrl.elContainer = ctrl.onAddOrig(map);
-    ctrl.buttons.forEach((b) => {
-      ctrl.addButton(b);
-    });
-    return ctrl.elContainer;
-  }
-  onRemove(map) {
-    let ctrl = this;
-    ctrl.buttons.forEach((b) => {
-      ctrl.removeButton(b);
-    });
-    ctrl.onRemoveOrig(map);
-  }
-  addButton(opt) {
-    let ctrl = this;
-    var elButton = document.createElement("button");
-    elButton.className = "mapbox-gl-draw_ctrl-draw-btn";
-    if (opt.classes instanceof Array) {
-      opt.classes.forEach((c) => {
-        elButton.classList.add(c);
-      });
-    }
-    elButton.addEventListener(opt.on, opt.action);
-    ctrl.elContainer.appendChild(elButton);
-    opt.elButton = elButton;
-  }
-  removeButton(opt) {
-    opt.elButton.removeEventListener(opt.on, opt.action);
-    opt.elButton.remove();
-  }
-}
-
-drawBar = new extendDrawBar({
-  draw: draw,
-  buttons: [
-    {
-      on: "click",
-      action: splitPolygon,
-      classes: ["split-polygon"],
-    },
-  ],
-});
-
-map.addControl(drawBar, "top-right");
 ```
 
 > The syntax used here is because `mapbox-gl-draw-split-polygon-mode` needs to modify the modes object and also the `styles` object passed to the `mapbox-gl-draw`. the reason is this package uses [`mapbox-gl-draw-passing-mode`](https://github.com/mhsattarian/mapbox-gl-draw-passing-mode) underneath (and adds this to modes object) and needs to modify the styles to show the selected feature.
 
-also, take a look at the [**example**](https://github.com/ReyhaneMasumi/mapbox-gl-draw-split-polygon-mode/blob/main/demo/src/App.js) in the `demo` directory. in this example `mapbox-gl-draw-select-mode` is used so users can select feature after clicking in the split icon in the toolbar and get a highlighting when hover each map feature.
+### Draw Control
+You can create a [custom mapbox-gl draw toolbar](https://github.com/mapbox/mapbox-gl-draw/issues/874#issuecomment-470591089) to control this, take a look at the [**example**](https://github.com/ReyhaneMasumi/mapbox-gl-draw-split-polygon-mode/blob/main/demo/index.js) in the `demo` directory. in this example `mapbox-gl-draw-select-mode` is used so users can select feature after clicking in the split icon in the toolbar and get a highlighting when hover each map feature.
 
 ### Notes
 
